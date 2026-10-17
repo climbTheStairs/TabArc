@@ -150,8 +150,8 @@ EOF
 		do cat << EOF
 				<td class="team">
 					<p data-points-gained="$tpt">${is_inround:+"<span class=\"points\">(=$tot_tpt)</span> "}<span class="team-name" data-value="$tname" title="$tname">$tabbr</span></p>
-					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s1s\" style=\"--spk: $s1s;\">$s1s</span> "}<span class="speaker-name" title="$s1">$s1</span></p>
-					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s2s\" style=\"--spk: $s2s;\">$s2s</span> "}<span class="speaker-name" title="$s2">$s2</span></p>
+					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s1s\" style=\"--spk: $s1s;\" title=\"$s1s\">$s1s</span> "}<span class="speaker-name" title="$s1">$s1</span></p>
+					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s2s\" style=\"--spk: $s2s;\" title=\"$s2s\">$s2s</span> "}<span class="speaker-name" title="$s2">$s2</span></p>
 				</td>
 EOF
 		done
