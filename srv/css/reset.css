@@ -1,0 +1,25 @@
+/* Reset default browser styles */
+* {
+	background: initial;
+	border: initial;
+	box-sizing: border-box;
+	font: inherit;
+	margin: initial;
+	padding: initial
+}
+
+/* Set page to full height */
+html, body {
+	height: 100%;
+}
+
+/* Restore basic styles */
+em {
+	font-style: italic;
+}
+strong {
+	font-weight: bold;
+}
+mark {
+	background: yellow;
+}

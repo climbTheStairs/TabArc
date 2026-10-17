@@ -1,0 +1,148 @@
+/* layout */
+body {
+	padding: 10px;
+	/* --*-bg-xpar calculated to be same when on white bg as --*-bg */
+	--red-bg: #FCD; /* og on tabbycat: #f2bed2 */
+	--red-mg: #D26; /* og on tabbycat: #d1185e */
+	--red-fg: #6d0c31 ; /* og on tabbycat: #6d0c31 */
+	--red-bg-xpar: #FFC4D8DD;
+	--yel-bg: #FDB; /* og on tabbycat: #fed5c0 */
+	--yel-mg: #D61; /* og on tabbycat: #fd681d */
+	--yel-fg: #84360f ; /* og on tabbycat: #84360f */
+	--yel-bg-xpar: #FFD8B1DD;
+	--blu-bg: #AEF; /* og on tabbycat: #bee5eb */
+	--blu-mg: #18A; /* og on tabbycat: #17a2b8 */
+	--blu-fg: #0c5460; /* og on tabbycat: #0c5460 */
+	--blu-bg-xpar: #97EBFFDD;
+	--grn-bg: #AFC; /* og on tabbycat: #b8edde */
+	--grn-mg: #084; /* og on tabbycat: #00bf8a */
+	--grn-fg: #006348; /* og on tabbycat: #006348 */
+	--grn-bg-xpar: #97FFC4DD;
+	--prp-bg-xpar: #CAFD; /* I just made this myself */
+	--gradient: linear-gradient(-45deg in hsl longer hue, hsl(64 100% 67%), hsl(8 100% 67%));
+}
+
+#filt {
+	align-items: center;
+	display: flex;
+	gap: 20px;
+	:last-child {flex: 1}
+
+	fieldset {
+		border: 1px solid;
+		display: inline-block;
+		padding: 10px;
+	}
+
+	#textsearch-container {
+		background: var(--gradient);
+		border-radius: 999px;
+		padding: 4px;
+	}
+
+	#textsearch {
+		background: white;
+		border-radius: 999px;
+		padding-inline: 10px;
+		width: 100%;
+	}
+}
+
+hr {
+	background: var(--gradient);
+	height: 5px;
+	margin-block: 10px;
+}
+
+#table-scrollbox {
+	overflow-x: auto;
+}
+
+table {
+	table-layout: fixed;
+	width: 100%;
+	min-width: 888px;
+
+	thead tr	{background: #ccc}
+	tbody tr:nth-child(odd of .matches-filt)	{background: #eee}
+	th	{font-weight: bold}
+	th, td	{padding: 1px}
+	td.room-points {text-align: center}
+	p {line-height: 1.1} /* TODO */
+	td.team p {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/* search */
+	tbody tr {
+		&:not(.matches-filt)	{visibility: collapse}
+		td:has(.matches-filt)	{outline: 3px solid red}
+		td .matches-filt		{background: yellow}
+	}
+
+	/* TODO */
+	.team-name, .speaker-name, .judge-name {
+		cursor: pointer;
+		text-decoration: underline #0004;
+		&:hover {
+			color: var(--mg);
+			text-decoration-color: currentColor;
+		}
+	}
+
+	/* sty based on semantics */
+	td.team:has([data-points-gained="0"]) {
+		--bg: var(--red-bg);
+		--mg: var(--red-mg);
+		--fg: var(--red-fg);
+		--bg-xpar: var(--red-bg-xpar);
+	}
+	td.team:has([data-points-gained="1"]) {
+		--bg: var(--yel-bg);
+		--mg: var(--yel-mg);
+		--fg: var(--yel-fg);
+		--bg-xpar: var(--yel-bg-xpar);
+	}
+	td.team:has([data-points-gained="2"]) {
+		--bg: var(--blu-bg);
+		--mg: var(--blu-mg);
+		--fg: var(--blu-fg);
+		--bg-xpar: var(--blu-bg-xpar);
+	}
+	td.team:has([data-points-gained="3"]) {
+		--bg: var(--grn-bg);
+		--mg: var(--grn-mg);
+		--fg: var(--grn-fg);
+		--bg-xpar: var(--grn-bg-xpar);
+	}
+	td.panel {
+		--bg-xpar: var(--prp-bg-xpar);
+	}
+	td	{background: var(--bg-xpar)}
+	.team-name {font-weight: bold}
+	.chair		{font-weight: bold}
+	.panelist	{color: #004}
+	.trainee	{color: #040; font-style: italic}
+	.points		{color: var(--mg)}
+	.speaks {
+		/* attr(data-value type(<number>)) is not widely sptd yet */
+		--spk-procd: calc(clamp(67, var(--spk), 86) - 68);
+		--h: calc(80 + var(--spk-procd) / 15 * 240);
+		background: hsl(var(--h) 100% 67%);
+		border: 1px solid;
+		color: black;
+		display: inline-block;
+		font-size: small;
+	}
+
+	/* fun */
+	overflow: hidden;
+	td {
+		transition: transform 0.2s;
+		&:hover		{transform: scale(1.2)}
+		&:active	{transform: scale(0.9)}
+	}
+}
+
