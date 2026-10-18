@@ -15,7 +15,7 @@ def judge: # adjudicators.json
 
 def pairing: # venues.json pairings.json
 	(.[0] | obj(.url; .display_name)) as $vv |
-	.[1][] | $vv[.venue // ""] as $v | ssin(.url; -3) as $r |
+	.[1][] | ($vv[.venue // ""] // "") as $v | ssin(.url; -3) as $r |
 	{p: .id, $r, $v};
 
 def pairing_judge: # pairings.json
