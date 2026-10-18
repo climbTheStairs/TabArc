@@ -187,8 +187,7 @@ EOF
 
 jq_run() {
 	fn=$1; shift
-	# TODO: mk self-contained
-	jq -L ~ -csL ../.. "include \"jq\"; $fn" "$@" | json2tsv -s | tail -n+2
+	jq -csL ../.. "include \"jq\"; $fn" "$@" | json2tsv -s | tail -n+2
 }
 
 esc_html() {
