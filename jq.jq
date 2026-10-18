@@ -21,7 +21,8 @@ def pairing: # venues.json pairings.json
 def pairing_judge: # pairings.json
 	.[0][] | .id as $p |
 	.adjudicators |
-	.chairs=[.chair] | .panelists=.panellists | del(.chair, .panellists) |
+	.chairs=[.chair | sel(.)] | .panelists=.panellists |
+	del(.chair, .panellists) |
 	to_entries[] | "j" + .key[:-1] as $role | .value[] |
 	{$p, s: ssin(.; -1), $role, score: ""};
 
