@@ -6,14 +6,18 @@ awk()  { command awk -F "$HT" -v OFS="$HT" "$@"; }
 join() { command join -t"$HT" "$@"; }
 sort() { command sort -t"$HT" "$@"; }
 myjoin() { join -1"$2" -2"$4" $5 <(sort -k"$2" "$1") <(sort -k"$4" "$3"); }
-fail() { >&2 p "$0: $1"; exit 1; }
+fail() { >&2 p "${0##*/}: $1"; exit 1; }
 
 main() (
 	cd "$1" || fail "cd $1 failed"
 	tourn=$(p "${1##*/}" | tr _ ' ')
 	>&2 p "INFO: $tourn: gen"
-	jq -cs add -- *_pairings.json > pairings.json
-	jq -cs add -- *_ballots.json > ballots.json
+	jq -cs add -- *_pairings.json > pairings.json &&
+	jq -cs add -- *_ballots.json > ballots.json ||
+		fail "ERR: $tourn: *_pairings.json or *_ballots.json not exist"
+	for f in adjudicators.json rounds.json teams.json venues.json; do
+		[ -f "$f" ] || fail "ERR: $tourn: file $f not exist"
+	done
 	cat << EOF
 <!DOCTYPE html>
 <html>
@@ -75,11 +79,11 @@ EOF
 		jq_run pairing			venues.json pairings.json
 	) |
 	myjoin - 1 <(
-		jq_run pairing_speaker	teams.json ballots.json
+		jq_run pairing_speaker	teams.json ballots.json &&
 		jq_run pairing_judge	pairings.json
 	) 1 |
 	myjoin - 4 <(
-		jq_run speaker			teams.json
+		jq_run speaker			teams.json &&
 		jq_run judge			adjudicators.json
 	) 1 |
 	awk '{sub(/^c/, "p", $5); sub(/^j/, "q", $5)} 1' | # make .role sortable
@@ -159,7 +163,7 @@ EOF
 				<td class="panel"><p>
 EOF
 		while
-			IFS=$HT read -r role name
+			IFS=$HT read -r role name &&
 			[ "$role" != . ]
 		do cat << EOF
 					<span class="judge-name $role" title="$name">$name</span>,
@@ -193,5 +197,6 @@ esc_html() {
 
 for d do
 	d=${d%/}
-	main "$d" > "srv/${d##*/}.html"
+	dest="srv/${d##*/}.html"
+	main "$d" > "$dest" || rm "$dest"
 done
