@@ -1,3 +1,6 @@
+- spec tourn:
+	- hhiv25 round weight
+	- hwsrr
 - no teams but judges
 - m
 - add col f tourn
