@@ -139,14 +139,14 @@ NR != 1 && ($1 SUBSEP $2) != (rid SUBSEP venue) {printf ".\n"}
 	tr \\036 \\n |
 	esc_html |
 	while IFS=$HT read -r rid rname rabbr venue avg _; do
-		is_inround=
-		[ "${rname#'Round '}" != "$rname" ] && is_inround=1
 		cat << EOF
 			<tr class="matches-filt">
 				<th class="round-name" data-value="$rid" title="$rname">$rabbr</th>
 				<td class="room-name">$venue</td>
-				<td class="room-points">${is_inround:+"$avg"}</td>
+				<td class="room-points">$avg</td>
 EOF
+		is_inround=
+		[ "${rname#'Round '}" != "$rname" ] && is_inround=1 # TODO: better way to do this
 		i=0; while
 			i=$((i+1))
 			[ "$i" -le 4 ] &&
