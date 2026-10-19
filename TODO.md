@@ -1,7 +1,9 @@
+- don't add to tot_tpt for outround
 - spec tourn:
 	- hhiv25 round weight
 	- hwsrr
 - no teams but judges
+- conflict ESL/EFL outround abbr
 - m
 - add col f tourn
 - E P conflict speaker_id judge_id?
