@@ -9,8 +9,8 @@ myjoin() { join -1"$2" -2"$4" $5 <(sort -k"$2" "$1") <(sort -k"$4" "$3"); }
 fail() { >&2 p "${0##*/}: $1"; exit 1; }
 
 main() (
-	cd "$1" || fail "cd $1 failed"
-	tourn=$(p "${1##*/}" | tr _ ' ')
+	readonly tourn=$1 ftourn=$2
+	cd "dat/$ftourn" || fail "cd dat/$ftourn failed"
 	>&2 p "INFO: $tourn: gen"
 	jq -cs add -- *_pairings.json > pairings.json &&
 	jq -cs add -- *_ballots.json > ballots.json ||
@@ -196,8 +196,8 @@ esc_html() {
 	sed 's/[&]/\&amp;/g; s/[<]/\&lt/g; s/["]/\&quot;/g;'
 }
 
-for d do
-	d=${d%/}
-	dest="srv/${d##*/}.html"
-	main "$d" > "$dest" || rm "$dest"
+for tourn do
+	ftourn=$(p "$tourn" | tr '[:upper:]' '[:lower:]' | tr ' ' _)
+	dest="srv/$ftourn.html"
+	main "$tourn" "$ftourn" > "$dest" || rm "$dest"
 done

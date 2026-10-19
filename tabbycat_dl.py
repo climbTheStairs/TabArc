@@ -1,5 +1,4 @@
 #!/bin/env python3
-# dep: jq
 import json, os, re, shutil, subprocess, sys, time
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
