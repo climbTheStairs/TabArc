@@ -1,5 +1,5 @@
 #!/bin/bash
-# dep: bash, jq, ~/bin/json2tsv
+# dep: bash, jq
 readonly HT=$(printf \\t) RS=$(printf \\036)
 p() { printf %s\\n "$@"; }
 awk()  { command awk -F "$HT" -v OFS="$HT" "$@"; }
@@ -189,7 +189,7 @@ EOF
 
 jq_run() {
 	fn=$1; shift
-	jq -csL ../.. "include \"jq\"; $fn" "$@" | json2tsv -s | tail -n+2
+	jq -csL ../.. "include \"jq\"; $fn" "$@" | ../../lib/json2tsv -s | tail -n+2
 }
 
 esc_html() {

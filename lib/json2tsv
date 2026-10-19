@@ -1,0 +1,14 @@
+#!/bin/jq -rf
+# usage: json2tsv JSON_FILE
+# usage: json2tsv -s JSONL_FILE
+def esc:
+	gsub("\\\\"; "\\\\") |
+	gsub("\n"; "\\n") |
+	gsub("\r"; "\\r") |
+	gsub("\t"; "\\t");
+
+map(with_entries(.key=(.key | tostring))) |
+(add | keys_unsorted) as $keys |
+$keys, (.[] | [.[$keys[]] | tostring]) |
+map(esc) |
+join("\t")
