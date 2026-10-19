@@ -133,6 +133,8 @@ NR != 1 && ($1 SUBSEP $2) != (rid SUBSEP venue) {printf ".\n"}
 	print oo, teams_s["oo1"], oo_tpt, tot_tpt[oo], names["oo1"], spts["oo1"], names["oo2"], spts["oo2"]
 	print cg, teams_s["pg1"], cg_tpt, tot_tpt[cg], names["pg1"], spts["pg1"], names["pg2"], spts["pg2"]
 	print co, teams_s["po1"], co_tpt, tot_tpt[co], names["po1"], spts["po1"], names["po2"], spts["po2"]
+	# nec to empty in case of missing fields (e.g. team w 1 speaker in outround)
+	split("", spts); split("", names); split("", teams_s); split("", teams_l)
 }' |
 	awk '$1 != "chair"' | # TODO
 	sort -k1,1n -k5,5rn -k 4,4n | # sort by round, avg, venue
