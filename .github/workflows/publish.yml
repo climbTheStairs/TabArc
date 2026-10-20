@@ -1,49 +1,49 @@
 {
-	# trigger on push and on manual runs from Actions tab
-	on: ["push", "workflow_dispatch"],
+  # trigger on push and on manual runs from Actions tab
+  on: ["push", "workflow_dispatch"],
 
-	# allow deployment to GitHub Pages
-	permissions: {contents: "read", pages: "write", id-token: "write"},
+  # allow deployment to GitHub Pages
+  permissions: {contents: "read", pages: "write", id-token: "write"},
 
-	# allow only one concurrent deployment,
-	# skipping runs queued between the run in-progress and latest queued
-	# but do not cancel in-progress runs
-	concurrency: {group: "pages", cancel-in-progress: false},
+  # allow only one concurrent deployment,
+  # skipping runs queued between the run in-progress and latest queued
+  # but do not cancel in-progress runs
+  concurrency: {group: "pages", cancel-in-progress: false},
 
-	jobs: {
-		build: {
-			runs-on: "ubuntu-latest",
-#			permissions: {contents: "write"},
-			steps: [{
-				uses: "actions/checkout@v4",
-			}, {
-				uses: "actions/configure-pages@v5",
-			}, {
-				env: {GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"},
-				run: "gh release download dat && tar -xJf dat.tar.xz",
-			}, {
-#				run: "sh tabbycat_dl.sh",
-#			}, {
-#				run: "tar -cJf dat.tar.xz dat/ && gh release upload dat dat.tar.xz --clobber",
-#			}, {
-				run: "sudo wget -O /usr/local/bin/jq 'https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-linux-amd64' && sudo chmod +x /usr/local/bin/jq",
-			}, {
-				run: "while IFS='\t' read -r tourn _ _ url; do bash gen.bash \"$tourn\" \"$url\"; done < tabs.tsv",
-			}, {
-				uses: "actions/upload-pages-artifact@v3",
-				with: {path: "srv/"},
-			}],
-		},
-		deploy: {
-			environment: {
-				name: "github-pages",
-				url: "${{ steps.deployment.outputs.page_url }}",
-			},
-			runs-on: "ubuntu-latest",
-			needs: "build",
-			steps: [{
-				uses: "actions/deploy-pages@v4",
-			}],
-		},
-	},
+  jobs: {
+    build: {
+      runs-on: "ubuntu-latest",
+#     permissions: {contents: "write"},
+      steps: [{
+        uses: "actions/checkout@v4",
+      }, {
+        uses: "actions/configure-pages@v5",
+      }, {
+        env: {GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"},
+        run: "gh release download dat && tar -xJf dat.tar.xz",
+      }, {
+#       run: "sh tabbycat_dl.sh",
+#     }, {
+#       run: "tar -cJf dat.tar.xz dat/ && gh release upload dat dat.tar.xz --clobber",
+#     }, {
+        run: "sudo wget -O /usr/local/bin/jq 'https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-linux-amd64' && sudo chmod +x /usr/local/bin/jq",
+      }, {
+        run: "while IFS='\t' read -r tourn _ _ url; do bash gen.bash \"$tourn\" \"$url\"; done < tabs.tsv",
+      }, {
+        uses: "actions/upload-pages-artifact@v3",
+        with: {path: "srv/"},
+      }],
+    },
+    deploy: {
+      environment: {
+        name: "github-pages",
+        url: "${{ steps.deployment.outputs.page_url }}",
+      },
+      runs-on: "ubuntu-latest",
+      needs: "build",
+      steps: [{
+        uses: "actions/deploy-pages@v4",
+      }],
+    },
+  },
 }
