@@ -7,7 +7,7 @@ cat << EOF
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
-	<title>Motions</title>
+	<title>Motions - TabArc</title>
 	<style>tbody tr:nth-child(odd) {
 	background: #eee;
 }</style>

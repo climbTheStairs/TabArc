@@ -25,7 +25,7 @@ main() (
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
-	<title>$tourn: Results</title>
+	<title>$tourn: Results - TabArc</title>
 	<link rel="stylesheet" href="css/reset.css" />
 	<link rel="stylesheet" href="css/main.css" />
 </head>
