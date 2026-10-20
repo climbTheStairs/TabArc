@@ -139,11 +139,13 @@ table {
 		/* attr(data-value type(<number>)) is not widely sptd yet */
 		--spk-procd: calc(clamp(67, var(--spk), 86) - 68);
 		--h: calc(80 + var(--spk-procd) / 15 * 240);
-		background: hsl(var(--h) 100% 67%);
-		border: 1px solid;
+		background: hsl(var(--h) 100% 70%);
+		border-radius: 0.5em;
 		color: black;
 		display: inline-block;
 		font-size: small;
+		font-weight: bold;
+		padding: 1px;
 		text-shadow: 0 0 2px white; /* make slightly easier to see */
 	}
 
