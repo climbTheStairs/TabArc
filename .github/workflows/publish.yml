@@ -28,7 +28,7 @@
 #			}, {
 				run: "sudo wget -O /usr/local/bin/jq 'https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-linux-amd64' && sudo chmod +x /usr/local/bin/jq",
 			}, {
-				run: "while IFS='\t' read -r tourn _; do bash gen.bash \"$tourn\"; done < tabs.tsv",
+				run: "while IFS='\t' read -r tourn _ _ url; do bash gen.bash \"$tourn\" \"$url\"; done < tabs.tsv",
 			}, {
 				uses: "actions/upload-pages-artifact@v3",
 				with: {path: "srv/"},

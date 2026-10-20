@@ -22,6 +22,15 @@ body {
 	--gradient: linear-gradient(-45deg in hsl longer hue, hsl(64 100% 67%), hsl(8 100% 67%));
 }
 
+h1 {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+#tourn-info {
+	font-size: small;
+}
+
 #filt {
 	align-items: center;
 	display: flex;

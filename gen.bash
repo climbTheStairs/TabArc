@@ -9,8 +9,9 @@ myjoin() { join -1"$2" -2"$4" $5 <(sort -k"$2" "$1") <(sort -k"$4" "$3"); }
 fail() { >&2 p "${0##*/}: $1"; exit 1; }
 
 main() (
-	readonly tourn=$1 ftourn=$2
-	cd "dat/$ftourn" || fail "cd dat/$ftourn failed"
+	readonly tourn=$1 tab_url=$2
+	d="dat/$(p "$tourn" | tr '[:upper:]' '[:lower:]' | tr ' ' _)"
+	cd "$d" || fail "cd $d failed"
 	>&2 p "INFO: $tourn: gen"
 	jq -cs add -- *_pairings.json > pairings.json &&
 	jq -cs add -- *_ballots.json > ballots.json ||
@@ -29,6 +30,9 @@ main() (
 	<link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
+<h1>$tourn: Results</h1>
+<p id="tourn-info">original: <a href="$tab_url" rel="external noreferrer">${tab_url#'https://'}</a></p>
+<hr />
 <form id="filt">
 	<fieldset>
 		<legend>Rounds</legend>
@@ -196,8 +200,6 @@ esc_html() {
 	sed 's/[&]/\&amp;/g; s/[<]/\&lt/g; s/["]/\&quot;/g;'
 }
 
-for tourn do
-	ftourn=$(p "$tourn" | tr '[:upper:]' '[:lower:]' | tr ' ' _)
-	dest="srv/$ftourn.html"
-	main "$tourn" "$ftourn" > "$dest" || rm "$dest"
-done
+dest="srv/$(p "$1" | tr '[:upper:]' '[:lower:]' | tr ' ' _).html"
+main "$@" > "$dest" || rm "$dest"
+
