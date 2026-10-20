@@ -90,7 +90,7 @@ EOF
 		jq_run round			rounds.json
 	) 1 |
 	awk '{sub(/^c/, "p", $5); sub(/^j/, "q", $5)} 1' | # make .role sortable
-	sort -k3,3 -k5,5 | # sort by pairing, role
+	sort -k3,3n -k5,5 | # sort by pairing, role
 	cut -f1,4- | # rm ids
 	awk -vORS="$RS" 'END {printf ".\n"}
 NR != 1 && ($1 SUBSEP $2) != (rid SUBSEP venue) {printf ".\n"}
