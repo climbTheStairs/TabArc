@@ -45,8 +45,7 @@ def main():
             continue
 
 def dl_endpt(tourn_url, path):
-    i = path.find("*")
-    if i < 0:
+    if (i := path.find("*")) < 0:
         return dl(tourn_url, path)
     # if here then endpt certainly contains wildcard
     fname_par = path[:i-1].replace("/", "_") + ".json"
