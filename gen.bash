@@ -57,9 +57,9 @@ EOF
 <div id="table-scrollbox">
 	<table>
 		<colgroup>
-			<col class="round-name"		style="width: 64px;" />
-			<col class="room-name"		style="width: 100px;" />
-			<col class="room-points"	style="width: 64px;" />
+			<col class="r-name"	style="width: 64px;" />
+			<col class="v-name"	style="width: 100px;" />
+			<col class="v-pts"	style="width: 64px;" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -147,9 +147,9 @@ NR != 1 && ($1 SUBSEP $2) != (rid SUBSEP venue) {printf ".\n"}
 	while IFS=$HT read -r rid rname rabbr venue avg _; do
 		cat << EOF
 			<tr class="matches-filt">
-				<th class="round-name" data-value="$rid" title="$rname">$rabbr</th>
-				<td class="room-name">$venue</td>
-				<td class="room-points">$avg</td>
+				<th class="r-name" data-value="$rid" title="$rname">$rabbr</th>
+				<td class="v-name">$venue</td>
+				<td class="v-pts">$avg</td>
 EOF
 		is_inround=
 		[ "${rname#'Round '}" != "$rname" ] && is_inround=1 # TODO: better way to do this
@@ -159,9 +159,9 @@ EOF
 			IFS=$HT read -r tname tabbr tpt tot_tpt s1 s1s s2 s2s
 		do cat << EOF
 				<td class="team">
-					<p data-points-gained="$tpt">${is_inround:+"<span class=\"points\">(=$tot_tpt)</span> "}<span class="team-name" data-value="$tname" title="$tname">$tabbr</span></p>
-					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s1s\" style=\"--spk: $s1s;\" title=\"$s1s\">$s1s</span> "}<span class="speaker-name" title="$s1">$s1</span></p>
-					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s2s\" style=\"--spk: $s2s;\" title=\"$s2s\">$s2s</span> "}<span class="speaker-name" title="$s2">$s2</span></p>
+					<p data-pts-gained="$tpt">${is_inround:+"<span class=\"pts\">(=$tot_tpt)</span> "}<span class="t-name" data-value="$tname" title="$tname">$tabbr</span></p>
+					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s1s\" style=\"--spk: $s1s;\" title=\"$s1s\">$s1s</span> "}<span class="s-name" title="$s1">$s1</span></p>
+					<p>${is_inround:+"<span class=\"speaks\" data-value=\"$s2s\" style=\"--spk: $s2s;\" title=\"$s2s\">$s2s</span> "}<span class="s-name" title="$s2">$s2</span></p>
 				</td>
 EOF
 		done
@@ -172,7 +172,7 @@ EOF
 			IFS=$HT read -r role name &&
 			[ "$role" != . ]
 		do cat << EOF
-					<span class="judge-name $role" title="$name">$name</span>,
+					<span class="j-name $role" title="$name">$name</span>,
 EOF
 		done | sed '$s/,$//'
 		cat << EOF

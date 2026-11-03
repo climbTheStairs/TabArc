@@ -76,7 +76,7 @@ table {
 	tbody tr:nth-child(odd of .matches-filt)	{background: #eee}
 	th	{font-weight: bold}
 	th, td	{padding: 1px}
-	td.room-points {text-align: center}
+	td.v-pts {text-align: center}
 	p {line-height: 1.1} /* TODO */
 	td.team p {
 		white-space: nowrap;
@@ -92,7 +92,7 @@ table {
 	}
 
 	/* TODO */
-	.team-name, .speaker-name, .judge-name {
+	.t-name, .s-name, .j-name {
 		cursor: pointer;
 		text-decoration: underline #0004;
 		&:hover {
@@ -102,25 +102,25 @@ table {
 	}
 
 	/* sty based on semantics */
-	td.team:has([data-points-gained="0"]) {
+	td.team:has([data-pts-gained="0"]) {
 		--bg: var(--red-bg);
 		--mg: var(--red-mg);
 		--fg: var(--red-fg);
 		--bg-xpar: var(--red-bg-xpar);
 	}
-	td.team:has([data-points-gained="1"]) {
+	td.team:has([data-pts-gained="1"]) {
 		--bg: var(--yel-bg);
 		--mg: var(--yel-mg);
 		--fg: var(--yel-fg);
 		--bg-xpar: var(--yel-bg-xpar);
 	}
-	td.team:has([data-points-gained="2"]) {
+	td.team:has([data-pts-gained="2"]) {
 		--bg: var(--blu-bg);
 		--mg: var(--blu-mg);
 		--fg: var(--blu-fg);
 		--bg-xpar: var(--blu-bg-xpar);
 	}
-	td.team:has([data-points-gained="3"]) {
+	td.team:has([data-pts-gained="3"]) {
 		--bg: var(--grn-bg);
 		--mg: var(--grn-mg);
 		--fg: var(--grn-fg);
@@ -130,11 +130,11 @@ table {
 		--bg-xpar: var(--prp-bg-xpar);
 	}
 	td	{background: var(--bg-xpar)}
-	.team-name {font-weight: bold}
+	.t-name		{font-weight: bold}
 	.chair		{font-weight: bold}
 	.panelist	{color: #004}
 	.trainee	{color: #040; font-style: italic}
-	.points		{color: var(--mg)}
+	.pts		{color: var(--mg)}
 	.speaks {
 		/* attr(data-value type(<number>)) is not widely sptd yet */
 		--spk-procd: calc(clamp(67, var(--spk), 86) - 68);

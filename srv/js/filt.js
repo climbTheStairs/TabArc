@@ -8,7 +8,7 @@ const  $filtT =  $("#filt input[type=text]")
 const main = () => {
 	for (const $x of $$("#filt input"))
 		$x.oninput = filt
-	for (const $x of $$(".team-name, .speaker-name, .judge-name"))
+	for (const $x of $$(".t-name, .s-name, .j-name"))
 		$x.onclick = filtThisPrsn
 }
 
@@ -67,10 +67,10 @@ const textsearch2regex = (q) => q.length
 const matchesQuerys = ($tr, {r, t, s, j, q}) => {
 	const roundIsEmpty = r.length === 0
 	const otherIsEmpty = t.concat(s, j).length === 0 && !q
-	const matchesR = matchesQuery($tr, r, "round")
-	const matchesT = matchesQuery($tr, t, "team")
-	const matchesS = matchesQuery($tr, s, "speaker")
-	const matchesJ = matchesQuery($tr, j, "judge")
+	const matchesR = matchesQuery($tr, r, "r")
+	const matchesT = matchesQuery($tr, t, "t")
+	const matchesS = matchesQuery($tr, s, "s")
+	const matchesJ = matchesQuery($tr, j, "j")
 	const matchesQ = matchesTextsearch($tr, q)
 	const matchesOther = matchesT || matchesS || matchesJ || matchesQ
 	return (roundIsEmpty || matchesR) && (otherIsEmpty || matchesOther)
@@ -85,7 +85,7 @@ const matchesQuery = ($tr, q = [], field) =>
 		].some(x => x && q.includes(norm(x))))
 	) || acc, false)
 
-const SEL_WHERE = ":is(th, td):is(.round-name, .room-name, .team, .panel)"
+const SEL_WHERE = ":is(th, td):is(.r-name, .v-name, .team, .panel)"
 const SEL_CHILDLESS = ":not(:has(*))"
 const SEL_TEXTSEARCH = (
 	SEL_WHERE + SEL_CHILDLESS + ", " +
