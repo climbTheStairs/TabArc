@@ -93,7 +93,7 @@ const SEL_TEXTSEARCH = (
 const REPL = `<mark class="matches-filt">$&</mark>`
 const matchesTextsearch = ($tr, q) =>
 	!!q && $$(SEL_TEXTSEARCH, $tr)
-		.filter(($x) => !$x.classList.contains(".matches-filt"))
+		.filter(($x) => !$x.classList.contains("matches-filt"))
 		.reduce((acc, $x) => $x.innerHTML !== (
 			$x.innerHTML = $x.innerHTML.replace(q, REPL)
 		) || acc, false)

@@ -1,4 +1,4 @@
-const runIfFn = (x, ...args) => typeof(x) === "function" ? x(args) : x
+const runIfFn = (x, ...args) => typeof(x) === "function" ? x(...args) : x
 const $$ = (sel, $par=document) => [...$par.querySelectorAll(sel)]
 const $  = (sel, $par=document, failIfMult=false) => {
 	const [$x, ...rest] = $$(sel, $par)
