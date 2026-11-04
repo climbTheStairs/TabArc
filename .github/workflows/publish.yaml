@@ -30,6 +30,8 @@
       }, {
         run: "sh gen_index.sh > srv/index.html",
       }, {
+        run: "sh gen_mot.sh > srv/mot.html",
+      }, {
         run: "< tabs.tsv tr '\\t' '@' | while IFS='@' read -r tourn _ _ url; do bash gen.bash \"$tourn\" \"$url\"; done",
       }, {
         uses: "actions/upload-pages-artifact@v3",

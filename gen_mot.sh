@@ -1,6 +1,8 @@
 #!/bin/sh
-readonly HT=$(printf \\t) RS=$(printf \\036)
+readonly RS=$(printf \\036)
 p() { printf %s\\n "$@"; }
+
+cd dat/ || exit 1
 cat << EOF
 <!DOCTYPE html>
 <html>
@@ -24,11 +26,12 @@ cat << EOF
 EOF
 for f in */motions.json; do
 	d=${f%/*}
-	jq -cs --arg tourn "$d" \
-		'(.[0] | obj(.seq; .name)) as $rr | .[1] | unique[] |
+	jq -csL .. --arg tourn "$d" \
+		'include "util";
+		(.[0] | obj(.seq; .name)) as $rr | .[1] | unique[] |
 		[$tourn, ([$rr[.rounds[].round | split("/")[-1]]] | join(", ")), .info_slide_plain, .text]' \
 		"$d/rounds.json" "$f"
-done | json2tsv -s | tail -n+2 | sort |
+done | ../lib/json2tsv -s | tail -n+2 | sort |
 tr \\t \\036 |
 while IFS=$RS read -r tourn round infoslide mot; do
 	infoslide=${infoslide:+"<details><summary>Infoslide:</summary><p>$infoslide</p></details>"}
