@@ -14,14 +14,14 @@ cat << EOF
 EOF
 < tabs.tsv tr \\t \\036 |
 while IFS=$RS read -r tourn _ deb_fmt _; do
-	[ "$fmt" = BP ] || continue
+	[ "$deb_fmt" = BP ] || continue
 	fname=$(p "$tourn" | tr '[:upper:]' '[:lower:]' | tr ' ' _).html
 	cat << EOF
 	<li><a href="$fname">$tourn</a></li>
 EOF
 done
 cat << EOF
-</ol>
+</ul>
 </body>
 </html>
 EOF
