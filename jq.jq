@@ -34,7 +34,8 @@ def pairing_speaker: # teams.json ballots.json
 	if .speeches then .speeches else
 		(.win | bool2int) as $score |
 		$tt["\(ssin(.team; -1))"] |
-		map(.score=$score)
+		map(.score=$score) |
+		if length == 1 then [.[0], .[0]] else . end # TODO: this kinda sucks
 	end |
 	addidxprop[] |
 	ssin(.speaker; -1) as $s |

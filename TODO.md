@@ -1,5 +1,3 @@
-- conf: handl team w 1 spkr
-	- ex: <https://hhiv2024.calicotab.com/_/participants/team/203154/>
 - don't add to tot_tpt for outround
 - spec tourn:
 	- hhiv25 round weight
@@ -9,7 +7,8 @@
 - m
 - add col f tourn
 - E P conflict speaker_id judge_id?
-- spt ot fmt: cp cndf australs
+- spt ot fmt: cp cndf wsdc australs
+	- mult ballots
 
 ## far fut
 - ui: opt t hide dat (eg: team name, spks)
