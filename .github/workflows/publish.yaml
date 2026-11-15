@@ -32,7 +32,7 @@
       }, {
         run: "sh gen_mot.sh > srv/mot.html",
       }, {
-        run: "< tabs.tsv tr '\\t' '@' | while IFS='@' read -r tourn _ deb_fmt url; do [ \"$deb_fmt\" = BP ] && bash gen.bash \"$tourn\" \"$url\"; done",
+        run: "< tabs.tsv tr '\\t' '@' | while IFS='@' read -r tourn _ deb_fmt url; do if [ \"$deb_fmt\" = BP ]; then bash gen.bash \"$tourn\" \"$url\"; fi; done",
       }, {
         uses: "actions/upload-pages-artifact@v3",
         with: {path: "srv/"},
