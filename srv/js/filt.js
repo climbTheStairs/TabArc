@@ -56,7 +56,7 @@ const grpQuerys = (q) => {
 	return [k[0], norm(v)]
 }
 
-const norm = (s) => rmEmoji(s).trim()
+const norm = (s) => rmEmoji(s).replace(/^[*]+|[*]+$/g, "").trim()
 const rmEmoji = (s) => s.replace(/\p{Emoji_Presentation}/gu, "")
 
 const textsearch2regex = (q) => q.length

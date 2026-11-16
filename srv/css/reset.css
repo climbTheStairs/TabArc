@@ -8,8 +8,7 @@
 	padding: initial
 }
 
-/* Set page to full height */
-html, body {
+body {
 	height: 100%;
 }
 
